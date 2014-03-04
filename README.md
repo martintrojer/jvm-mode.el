@@ -2,11 +2,15 @@
 
 Emacs minor mode to monitor and manage your (local) JVMs.
 
-WIP
-
 ## Installation
 
-Melpa
+It's available on [Melpa](http://melpa.milkbox.net/):
+
+    M-x package-install jvm-mode
+
+## TODO
+
+* 'list-jvms' command that opens a buffer with kill key bindings
 
 ## License
 
