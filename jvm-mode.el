@@ -5,7 +5,7 @@
 ;; Author: Martin Trojer <martin.trojer@gmail.com>
 ;; URL: https://github.com/martintrojer/jvm-mode.el
 ;; Version: 0.1
-;; Package-Requires: ((dash "2.4.0") (emacs "24"))
+;; Package-Requires: ((dash "2.6.0") (emacs "24"))
 ;; Keywords: convenience
 
 ;; This file is NOT part of GNU Emacs.

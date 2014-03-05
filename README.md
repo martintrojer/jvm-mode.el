@@ -10,13 +10,13 @@ It's available on [Melpa](http://melpa.milkbox.net/):
 
 ## Usage
 
-jvm-mode is a global minor mode. It required a JDK installed on the local system, with `jps` in the path.
+jvm-mode is a global minor mode. It requires a JDK installed on the local system, with `jps` in the path.
 
 Turn on/off jvm-mode;
 
     (jvm-mode)
 
-You can kill jvms with the interactive function `kill-jvms`. All jvms with the matching main class will be send a terminate signal.
+You can kill jvms with the interactive function `kill-jvms`. All jvms with the matching main class will be sent a terminate signal.
 
 ## TODO
 
