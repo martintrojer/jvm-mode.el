@@ -112,3 +112,5 @@
       (stop-timer))))
 
 (provide 'jvm-mode)
+
+;;; jvm-mode.el ends here
