@@ -39,7 +39,7 @@
 
 (require 'dash)
 
-(defun async-shell-command-to-string (command callback)
+(defun jvm-mode-async-shell-command-to-string (command callback)
   "Execute shell command COMMAND asynchronously in the
   background. Invokes CALLBACK with the result string."
   (let ((output-buffer (generate-new-buffer " *temp*"))
@@ -56,11 +56,11 @@
          (kill-buffer output-buffer))))
     output-buffer))
 
-(defun get-jvm-pids (callback &optional pattern)
+(defun jvm-mode-get-jvm-pids (callback &optional pattern)
   "Invokes CALLBACK with a list of (matching) JVM pids"
   (let ((pattern (if pattern pattern ""))
         (callback-fun callback))
-    (async-shell-command-to-string
+    (jvm-mode-async-shell-command-to-string
      "jps -l"
      (lambda (out)
        (funcall callback-fun
@@ -73,28 +73,28 @@
 (defun kill-jvms (&optional pattern)
   "Kills all matching JVMs"
   (interactive "sPattern: ")
-  (get-jvm-pids
+  (jvm-mode-get-jvm-pids
    (lambda (pids)
      (--each pids (shell-command-to-string (format "kill %s" it))))
    pattern))
 
-(defvar jvm-string "jvm[]")
+(defvar jvm-mode-string "jvm[]")
 
-(defun update-jvm-string ()
-  (get-jvm-pids (lambda (all-pids)
-                  (setq jvm-string (format "jvm[%d]" (- (length all-pids) 1))))))
+(defun jvm-mode-update-string ()
+  (jvm-mode-get-jvm-pids (lambda (all-pids)
+                  (setq jvm-mode-string (format "jvm[%d]" (- (length all-pids) 1))))))
 
-(defvar timer-object nil)
+(defvar jvm-mode-timer-object nil)
 
-(defun start-timer ()
-  (setq timer-object (run-with-timer 0 10 'update-jvm-string)))
+(defun jvm-mode-start-timer ()
+  (setq jvm-mode-timer-object (run-with-timer 0 10 'jvm-mode-update-string)))
 
-(defun stop-timer ()
-  (when timer-object
-    (cancel-timer timer-object)
-    (setq timer-object nil)))
+(defun jvm-mode-stop-timer ()
+  (when jvm-mode-timer-object
+    (cancel-timer jvm-mode-timer-object)
+    (setq jvm-mode-timer-object nil)))
 
-(defvar jvm-old-car-mode-line-position nil)
+(defvar jvm-mode-old-car-mode-line-position nil)
 
 ;;;###autoload
 (define-minor-mode jvm-mode
@@ -103,12 +103,12 @@
   :group 'jvm
   (if jvm-mode
       (progn
-        (unless jvm-old-car-mode-line-position
-          (setq jvm-old-car-mode-line-position (car mode-line-position)))
-        (start-timer)
-        (setcar mode-line-position '(:eval (list jvm-string))))
+        (unless jvm-mode-old-car-mode-line-position
+          (setq jvm-mode-old-car-mode-line-position (car mode-line-position)))
+        (jvm-mode-start-timer)
+        (setcar mode-line-position '(:eval (list jvm-mode-string))))
     (progn
-      (setcar mode-line-position jvm-old-car-mode-line-position)
-      (stop-timer))))
+      (setcar mode-line-position jvm-mode-old-car-mode-line-position)
+      (jvm-mode-stop-timer))))
 
 (provide 'jvm-mode)
