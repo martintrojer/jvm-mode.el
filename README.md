@@ -8,9 +8,20 @@ It's available on [Melpa](http://melpa.milkbox.net/):
 
     M-x package-install jvm-mode
 
+## Usage
+
+jvm-mode is a global minor mode. It required a JDK installed on the local system, with `jps` in the path.
+
+Turn on/off jvm-mode;
+
+    (jvm-mode)
+
+You can kill jvms with the interactive function `kill-jvms`. All jvms with the matching main class will be send a terminate signal.
+
 ## TODO
 
 * 'list-jvms' command that opens a buffer with kill key bindings
+* handle jvm from other JDKs, interact with startup controlled services
 
 ## License
 
