@@ -16,6 +16,8 @@ Turn on/off jvm-mode;
 
     (jvm-mode)
 
+jvm-mode adds a string to the mode-line with the format `jvm[NNN]`, where NNN is the number of running JVMs. This count is updated periodically.
+
 You can kill jvms with the interactive function `kill-jvms`. All jvms with the matching main class will be sent a terminate signal.
 
 ## TODO
