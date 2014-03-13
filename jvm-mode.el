@@ -4,7 +4,7 @@
 
 ;; Author: Martin Trojer <martin.trojer@gmail.com>
 ;; URL: https://github.com/martintrojer/jvm-mode.el
-;; Version: 0.1
+;; Version: 0.2
 ;; Package-Requires: ((dash "2.6.0") (emacs "24"))
 ;; Keywords: convenience
 
@@ -78,11 +78,11 @@
      (--each pids (shell-command-to-string (format "kill %s" it))))
    pattern))
 
-(defvar jvm-mode-string "jvm[]")
+(defvar jvm-mode-string " jvm[]")
 
 (defun jvm-mode-update-string ()
   (jvm-mode-get-jvm-pids (lambda (all-pids)
-                  (setq jvm-mode-string (format "jvm[%d]" (- (length all-pids) 1))))))
+                  (setq jvm-mode-string (format " jvm[%d]" (- (length all-pids) 1))))))
 
 (defvar jvm-mode-timer-object nil)
 
@@ -94,8 +94,6 @@
     (cancel-timer jvm-mode-timer-object)
     (setq jvm-mode-timer-object nil)))
 
-(defvar jvm-mode-old-car-mode-line-position nil)
-
 ;;;###autoload
 (define-minor-mode jvm-mode
   "Manage your JVMs"
@@ -103,12 +101,10 @@
   :group 'jvm
   (if jvm-mode
       (progn
-        (unless jvm-mode-old-car-mode-line-position
-          (setq jvm-mode-old-car-mode-line-position (car mode-line-position)))
         (jvm-mode-start-timer)
-        (setcar mode-line-position '(:eval (list jvm-mode-string))))
+        (setq global-mode-string (append global-mode-string '((:eval (list jvm-mode-string))))))
     (progn
-      (setcar mode-line-position jvm-mode-old-car-mode-line-position)
+      (setq global-mode-string (butlast global-mode-string))
       (jvm-mode-stop-timer))))
 
 (provide 'jvm-mode)
