@@ -25,6 +25,7 @@ You can kill jvms with the interactive function `kill-jvms`. All jvms with the m
 * 'list-jvms' command that opens a buffer with kill key bindings
 * handle jvm from other JDKs, interact with startup controlled services
 
+
 ## License
 
 Copyright (C) 2014 Martin Trojer
