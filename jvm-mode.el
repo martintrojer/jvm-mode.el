@@ -39,6 +39,13 @@
 
 (require 'dash)
 
+(defgroup jvm-mode nil
+  "Monitor and manage local JVMs")
+
+(defcustom jvm-mode-line-string "jvm[%d]"
+  "Mode-line string."
+  :type 'string)
+
 (defun jvm-mode-async-shell-command-to-string (command callback)
   "Execute shell command COMMAND asynchronously in the
   background. Invokes CALLBACK with the result string."
@@ -78,11 +85,11 @@
      (--each pids (shell-command-to-string (format "kill %s" it))))
    pattern))
 
-(defvar jvm-mode-string " jvm[]")
+(defvar jvm-mode-string jvm-mode-line-string)
 
 (defun jvm-mode-update-string ()
   (jvm-mode-get-jvm-pids (lambda (all-pids)
-                  (setq jvm-mode-string (format " jvm[%d]" (- (length all-pids) 1))))))
+                  (setq jvm-mode-string (format jvm-mode-line-string (- (length all-pids) 1))))))
 
 (defvar jvm-mode-timer-object nil)
 
