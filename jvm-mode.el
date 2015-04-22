@@ -4,7 +4,7 @@
 
 ;; Author: Martin Trojer <martin.trojer@gmail.com>
 ;; URL: https://github.com/martintrojer/jvm-mode.el
-;; Version: 0.2
+;; Version: 0.3
 ;; Package-Requires: ((dash "2.6.0") (emacs "24"))
 ;; Keywords: convenience
 
